@@ -2,7 +2,7 @@
     "id": "nepaliCalendar",
     "name": "Nepali Calendar",
     "description": "Get the current Nepali date",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "ac17dollars (Abhinav Chalise)",
     "type": "widget",
     "component": "./NepaliCalendarWidget.qml",
