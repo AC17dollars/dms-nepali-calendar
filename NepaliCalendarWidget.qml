@@ -22,7 +22,7 @@ PluginComponent {
             spacing: Theme.spacingS
 
             StyledText {
-                text: NepCal.formatBSDate(NepCal.ADToBS(Qt.formatDate(systemClock.date, "yyyy-MM-dd")), pluginData.dateFormat || "YYYY Month dd")
+                text: NepCal.formatBSDate(NepCal.ADToBS(Qt.formatDate(systemClock.date, "yyyy-MM-dd")), pluginData.dateFormat ?? "YYYY Month dd", pluginData.showDevanagari)
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.surfaceText
                 anchors.verticalCenter: parent.verticalCenter
@@ -37,7 +37,7 @@ PluginComponent {
             spacing: Theme.spacingXS
 
             StyledText {
-                text: NepCal.formatBSDateVertical(NepCal.ADToBS(Qt.formatDate(systemClock.date, "yyyy-MM-dd")), pluginData.dateFormat || "YYYY Month dd")
+                text: NepCal.formatBSDateVertical(NepCal.ADToBS(Qt.formatDate(systemClock.date, "yyyy-MM-dd")), pluginData.dateFormat ?? "YYYY Month dd", pluginData.showDevanagari)
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.surfaceText
                 horizontalAlignment: Text.AlignHCenter

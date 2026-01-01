@@ -33,6 +33,9 @@ dms plugins install nepaliCalendar
 
 You can configure the date format through the plugin settings:
 
+- **Show Devanagari**
+  - Enable to display Nepali characters instead of English
+
 - **Format Options**:
   - `2082 Jestha 12` (YYYY Month dd)
   - `2082/02/12` (YYYY/MM/dd)

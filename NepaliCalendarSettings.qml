@@ -8,6 +8,13 @@ PluginSettings {
 
     pluginId: "nepaliCalendar"
 
+    ToggleSetting {
+        settingKey: "showDevanagari"
+        label: "देवनागरी"
+        description: "देवनागरी लिपि लाई देखाउनुहोस्"
+        defaultValue: false
+    }
+
     SelectionSetting {
         settingKey: "dateFormat"
         label: "Format"

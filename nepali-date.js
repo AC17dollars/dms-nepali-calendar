@@ -153,26 +153,41 @@ const bsMonths = [
     "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"
 ];
 
+const bsMonthsDevanagari = [
+    "वैशाख", "ज्येष्ठ", "आषाढ", "श्रावण", "भाद्र", "अश्विन",
+    "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"
+]
+
+const bsShortMonthsDevanagari = [
+    "वैशा", "ज्ये", "आषा", "श्राव", "भाद्र", "अश्वि", "कार्ति", "मंसि", "पौष", "माघ", "फाल्", "चैत्र"
+]
+
 const bsShortMonths = [
     "Bai", "Jes", "Ash", "Shr", "Bha", "Asw",
     "Kar", "Man", "Pou", "Mag", "Fal", "Cha"
 ];
 
-function formatBSDate(bsDateStr, format) {
+function formatBSDate(bsDateStr, format, showDevanagari = false) {
     if (!bsDateStr || bsDateStr === "Error") return bsDateStr;
 
     const parts = bsDateStr.split("-");
-    const yyyy = parts[0];
-    const mm = parts[1];
-    const dd = parts[2];
+    let yyyy = parts[0];
+    let mm = parts[1];
+    let dd = parts[2];
 
-    const yy = yyyy.substring(2);
-    const monthName = bsMonths[parseInt(mm, 10) - 1];
-    const d = parseInt(dd, 10).toString();
+    let yy = yyyy.substring(2);
+    const monthName = showDevanagari ? bsMonthsDevanagari[parseInt(mm, 10) - 1] : bsMonths[parseInt(mm, 10) - 1];
+
+    if (showDevanagari) {
+        yyyy = toDevanagariDigit(yyyy);
+        yy = toDevanagariDigit(yy);
+        mm = toDevanagariDigit(mm);
+        dd = toDevanagariDigit(dd);
+    }
 
     switch (format) {
         case "YYYY Month dd":
-            return yyyy + " " + monthName + " " + d;
+            return yyyy + " " + monthName + " " + dd;
         case "YYYY/MM/dd":
             return yyyy + "/" + mm + "/" + dd;
         case "YY-MM-dd":
@@ -182,13 +197,13 @@ function formatBSDate(bsDateStr, format) {
         case "YYYY-MM-dd":
             return yyyy + "-" + mm + "-" + dd;
         case "Month dd":
-            return monthName + " " + d;
+            return monthName + " " + dd;
         default:
             return bsDateStr;
     }
 }
 
-function formatBSDateVertical(bsDateStr, format) {
+function formatBSDateVertical(bsDateStr, format, showDevanagari = false) {
     if (!bsDateStr || bsDateStr === "Error") return bsDateStr;
 
     const parts = bsDateStr.split("-");
@@ -197,7 +212,7 @@ function formatBSDateVertical(bsDateStr, format) {
     const dd = parts[2];
 
     const yy = yyyy.substring(2);
-    const shortMonth = bsShortMonths[parseInt(mm, 10) - 1];
+    const shortMonth = showDevanagari ? bsShortMonthsDevanagari[parseInt(mm, 10) - 1] : bsShortMonths[parseInt(mm, 10) - 1];
 
     let verticalParts = [];
 
@@ -219,7 +234,14 @@ function formatBSDateVertical(bsDateStr, format) {
         verticalParts = [yy, mm, dd];
     }
 
-    return verticalParts.join("\n");
+    if (showDevanagari) {
+        verticalParts = toDevanagariDigit(verticalParts.join("\n"));
+    } else {
+        verticalParts = verticalParts.join("\n");
+    }
+
+
+    return verticalParts;
 }
 
 function findLastDayOfMonthOfAdDate(year, month) {
@@ -283,4 +305,10 @@ function ADToBS(date) {
     } else {
         return "Error";
     }
+}
+
+function toDevanagariDigit(number) {
+    return number.replace(/[0-9]/g, function (w) {
+        return "०१२३४५६७८९".charAt(w);
+    });
 }
