@@ -319,8 +319,15 @@ function BSToAD(bsYear, bsMonth, bsDay) {
     var REF_BS_YEAR = 2027;
     var REF_EPOCH_DAY = 103;
     var days = 0;
-    for (var y = REF_BS_YEAR; y < bsYear; y++) {
-        days += calendar_data[String(y)][12];
+    if (bsYear >= REF_BS_YEAR) {
+        for (var y = REF_BS_YEAR; y < bsYear; y++) {
+            days += calendar_data[String(y)][12];
+        }
+    } else {
+        // Count backward: subtract full years going from bsYear up to REF_BS_YEAR
+        for (var y = bsYear; y < REF_BS_YEAR; y++) {
+            days -= calendar_data[String(y)][12];
+        }
     }
     for (var m = 0; m < bsMonth - 1; m++) {
         days += calendar_data[String(bsYear)][m];
@@ -331,6 +338,7 @@ function BSToAD(bsYear, bsMonth, bsDay) {
 
 function getDaysInBSMonth(bsYear, bsMonth) {
     var data = calendar_data[String(bsYear)];
+    // calendar_data covers BS 1970–2099; 30 is a safe fallback for out-of-range years.
     if (!data) return 30;
     return data[bsMonth - 1];
 }

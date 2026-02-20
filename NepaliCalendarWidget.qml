@@ -75,8 +75,11 @@ PluginComponent {
         var daysInMonth = NepCal.getDaysInBSMonth(bsYear, bsMonth);
         var firstWeekday = NepCal.getFirstWeekdayOfBSMonth(bsYear, bsMonth);
         var cells = [];
+        // The calendar grid always starts at the Sunday column (column 0).
+        // Leading empty cells occupy columns 0 .. (firstWeekday-1), so i === 0
+        // is always the Sunday column, and i % 7 === 0 expresses this clearly.
         for (var i = 0; i < firstWeekday; i++) {
-            cells.push({day: 0, isToday: false, isHoliday: false, isSunday: (i === 0), events: []});
+            cells.push({day: 0, isToday: false, isHoliday: false, isSunday: (i % 7 === 0), events: []});
         }
         for (var d = 1; d <= daysInMonth; d++) {
             var weekdayIndex = (firstWeekday + d - 1) % 7;
