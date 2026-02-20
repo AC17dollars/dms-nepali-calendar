@@ -312,3 +312,39 @@ function toDevanagariDigit(number) {
         return "०१२३४५६७८९".charAt(w);
     });
 }
+
+// BSToAD: Convert a Bikram Sambat date to a JavaScript Date object (UTC midnight).
+// Reference point: BS 2027/1/1 = AD 1970-04-14 = Unix epoch day 103.
+function BSToAD(bsYear, bsMonth, bsDay) {
+    var REF_BS_YEAR = 2027;
+    var REF_EPOCH_DAY = 103;
+    var days = 0;
+    for (var y = REF_BS_YEAR; y < bsYear; y++) {
+        days += calendar_data[String(y)][12];
+    }
+    for (var m = 0; m < bsMonth - 1; m++) {
+        days += calendar_data[String(bsYear)][m];
+    }
+    days += bsDay - 1;
+    return new Date((REF_EPOCH_DAY + days) * 24 * 60 * 60 * 1000);
+}
+
+function getDaysInBSMonth(bsYear, bsMonth) {
+    var data = calendar_data[String(bsYear)];
+    if (!data) return 30;
+    return data[bsMonth - 1];
+}
+
+function getFirstWeekdayOfBSMonth(bsYear, bsMonth) {
+    return BSToAD(bsYear, bsMonth, 1).getUTCDay();
+}
+
+function getHolidayArtifactUrl(bsYear) {
+    return "https://raw.githubusercontent.com/casualsnek/npEventsAPI/main/artifacts/artifact-" + bsYear + ".json";
+}
+
+// Returns an AD date key matching the artifact JSON format, e.g. "2025/4/14"
+function getAdDateKey(bsYear, bsMonth, bsDay) {
+    var adDate = BSToAD(bsYear, bsMonth, bsDay);
+    return adDate.getUTCFullYear() + "/" + (adDate.getUTCMonth() + 1) + "/" + adDate.getUTCDate();
+}

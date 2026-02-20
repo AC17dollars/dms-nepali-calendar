@@ -1,9 +1,24 @@
 # Nepali Calendar Widget for DankMaterialShell
 
-A simple DankMaterialShell widget to display the current Nepali date (Bikram Sambat).
+A DankMaterialShell widget to display the current Nepali date (Bikram Sambat) with a
+click-to-open monthly calendar view showing Nepali holidays and events.
 
 ## Screenshots
 ![Horizontal Layout](./assets/horizontal.png)
+
+## Features
+
+- **Bar pill** — shows the current BS date in your configured format (horizontal & vertical bar)
+- **Calendar popout** — click the pill to open a monthly calendar view:
+  - Navigate months with `‹` / `›` arrows
+  - Today's date highlighted in the primary theme colour
+  - Sundays and public holidays shown in red
+  - Small dot indicator on days that have events
+  - Click any date to see its events/holidays in a detail panel
+  - "Events this month" list at the bottom with all events
+  - Devanagari/English label toggle respects the *Show Devanagari* setting
+- **Live holiday data** — fetched automatically from
+  [casualsnek/npEventsAPI](https://github.com/casualsnek/npEventsAPI) (no API key needed)
 
 ## Installation
 
@@ -47,3 +62,5 @@ You can configure the date format through the plugin settings:
 ## Credits
 
 Special thanks to [Prastav54/ad-bs-converter](https://github.com/Prastav54/ad-bs-converter) for the main conversion logic used in `nepali-date.js`.
+
+Holiday and event data is sourced from [casualsnek/npEventsAPI](https://github.com/casualsnek/npEventsAPI) (MIT licence).
